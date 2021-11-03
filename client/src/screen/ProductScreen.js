@@ -19,7 +19,6 @@ import Loader from "../components/Loader"
 const ProductScreen = ({ history, match }) => {
 	const [qty, setQty] = useState(1)
 
-	console.log(qty)
 	const dispatch = useDispatch()
 	const productDetail = useSelector((state) => state.productDetail)
 	const { product, loading, error } = productDetail
