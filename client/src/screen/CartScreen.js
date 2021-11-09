@@ -9,11 +9,12 @@ import { addToCart, removeFromCart } from "../actions/cartAction"
 
 const CartScreen = ({ location, match, history }) => {
 	const productId = match.params.id
-
 	//location.search: query params
 	const qty = location.search ? Number(location.search.split("=")[1]) : 1
+
 	const dispatch = useDispatch()
 	const cart = useSelector((state) => state.cart)
+
 	const { cartItems } = cart
 
 	useEffect(() => {

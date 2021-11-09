@@ -21,6 +21,7 @@ const ProductScreen = ({ history, match }) => {
 
 	const dispatch = useDispatch()
 	const productDetail = useSelector((state) => state.productDetail)
+
 	const { product, loading, error } = productDetail
 
 	useEffect(() => {

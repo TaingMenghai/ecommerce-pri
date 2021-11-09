@@ -6,6 +6,7 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
 			const item = action.payload
 			const existItem = state.cartItems.find((x) => x.product === item.product)
 
+			// if there is exist item in cartItems, will just replace the old item data (qty) to the new data. other wise just add item
 			if (existItem) {
 				return {
 					...state,
