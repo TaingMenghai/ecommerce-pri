@@ -6,9 +6,12 @@ import Header from "./components/Header"
 import CartScreen from "./screen/CartScreen"
 import HomeScreen from "./screen/HomeScreen"
 import LoginScreen from "./screen/LoginScreen"
+import PaymentScreen from "./screen/PaymentScreen"
+import PlaceOrderScreen from "./screen/PlaceOrderScreen"
 import ProductScreen from "./screen/ProductScreen"
 import ProfileScreen from "./screen/ProfileScreen"
 import RegisterScreen from "./screen/RegisterScreen"
+import ShippingScreen from "./screen/ShippingScreen"
 
 function App() {
 	return (
@@ -18,6 +21,9 @@ function App() {
 				<Container>
 					<Switch>
 						<Route exact path='/login' component={LoginScreen} />
+						<Route exact path='/shipping' component={ShippingScreen} />
+						<Route exact path='/payment' component={PaymentScreen} />
+						<Route exact path='/placeorder' component={PlaceOrderScreen} />
 						<Route exact path='/register' component={RegisterScreen} />
 						<Route exact path='/profile' component={ProfileScreen} />
 						<Route exact path='/' component={HomeScreen} />
