@@ -20,8 +20,8 @@ const ProductScreen = ({ history, match }) => {
 	const [qty, setQty] = useState(1)
 
 	const dispatch = useDispatch()
-	const productDetail = useSelector((state) => state.productDetail)
 
+	const productDetail = useSelector((state) => state.productDetail)
 	const { product, loading, error } = productDetail
 
 	useEffect(() => {
