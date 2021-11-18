@@ -18,6 +18,7 @@ const UserListScreen = ({ history }) => {
 	const { success: successDelete } = userDelete
 
 	useEffect(() => {
+		// only logged in admin can access see this
 		if (userInfo && userInfo.isAdmin) {
 			dispatch(listUsers())
 		} else {
@@ -27,7 +28,9 @@ const UserListScreen = ({ history }) => {
 	// want to run this again when success delete
 
 	const deleteHandler = (id) => {
-		dispatch(deleteUser(id))
+		if (window.confirm("Are you sure?")) {
+			dispatch(deleteUser(id))
+		}
 	}
 
 	return (
