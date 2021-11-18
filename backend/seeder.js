@@ -51,7 +51,7 @@ const destroyData = async () => {
 }
 
 if (process.argv[2] === "-d") {
-	destroyData()
+	destroyData() // yarn data:import
 } else {
-	importData()
+	importData() // yarn data:delete
 }

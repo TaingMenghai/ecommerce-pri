@@ -9,6 +9,8 @@ import LoginScreen from "./screen/LoginScreen"
 import OrderScreen from "./screen/OrderScreen"
 import PaymentScreen from "./screen/PaymentScreen"
 import PlaceOrderScreen from "./screen/PlaceOrderScreen"
+import ProductEditScreen from "./screen/ProductEditScreen"
+import ProductListScreen from "./screen/ProductListScreen"
 import ProductScreen from "./screen/ProductScreen"
 import ProfileScreen from "./screen/ProfileScreen"
 import RegisterScreen from "./screen/RegisterScreen"
@@ -38,6 +40,16 @@ function App() {
 							exact
 							path='/admin/user/:id/edit'
 							component={UserEditScreen}
+						/>
+						<Route
+							exact
+							path='/admin/productlist'
+							component={ProductListScreen}
+						/>
+						<Route
+							exact
+							path='/admin/product/:id/edit'
+							component={ProductEditScreen}
 						/>
 					</Switch>
 				</Container>
