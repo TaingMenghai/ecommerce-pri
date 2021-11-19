@@ -6,8 +6,11 @@ import { Row, Col, ListGroup, Image, Card, Button } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import Message from "../components/Message"
 import Loader from "../components/Loader"
-import { getOrderDetails, payOrder } from "../actions/orderAction"
-import { ORDER_PAY_RESET } from "../constants/orderConstant"
+import { deliverOrder, getOrderDetails, payOrder } from "../actions/orderAction"
+import {
+	ORDER_DELIVER_RESET,
+	ORDER_PAY_RESET,
+} from "../constants/orderConstant"
 
 const OrderScreen = ({ match, history }) => {
 	const orderId = match.params.id
@@ -16,14 +19,17 @@ const OrderScreen = ({ match, history }) => {
 
 	const dispatch = useDispatch()
 
+	const userLogin = useSelector((state) => state.userLogin)
+	const { userInfo } = userLogin
+
 	const orderDetails = useSelector((state) => state.orderDetails)
 	const { order, loading, error } = orderDetails
 
 	const orderPay = useSelector((state) => state.orderPay)
 	const { loading: loadingPay, success: successPay } = orderPay
 
-	const userLogin = useSelector((state) => state.userLogin)
-	const { userInfo } = userLogin
+	const orderDeliver = useSelector((state) => state.orderDeliver)
+	const { loading: loadingDeliver, success: successDeliver } = orderDeliver
 
 	if (!loading) {
 		//   Calculate prices
@@ -53,8 +59,9 @@ const OrderScreen = ({ match, history }) => {
 			document.body.appendChild(script)
 		}
 
-		if (!order || successPay || order._id !== orderId) {
+		if (!order || successPay || successDeliver || order._id !== orderId) {
 			dispatch({ type: ORDER_PAY_RESET })
+			dispatch({ type: ORDER_DELIVER_RESET })
 			dispatch(getOrderDetails(orderId))
 		} else if (!order.isPaid) {
 			if (!window.paypal) {
@@ -63,11 +70,14 @@ const OrderScreen = ({ match, history }) => {
 				setSdkReady(true)
 			}
 		}
-	}, [dispatch, orderId, successPay, order, userInfo, history])
+	}, [dispatch, orderId, successPay, successDeliver, order, userInfo, history])
 
 	const successPaymentHandler = (paymentResult) => {
-		console.log(paymentResult)
 		dispatch(payOrder(orderId, paymentResult))
+	}
+
+	const deliverOrderHandler = () => {
+		dispatch(deliverOrder(order))
 	}
 
 	return loading ? (
@@ -193,9 +203,14 @@ const OrderScreen = ({ match, history }) => {
 									)}
 								</ListGroup.Item>
 							)}
+							{loadingDeliver && <Loader />}
 							{userInfo && userInfo.isAdmin && order.isPaid && (
 								<ListGroup.Item>
-									<Button type='button' className='btn btn-block'>
+									<Button
+										type='button'
+										onClick={deliverOrderHandler}
+										className='btn btn-block'
+									>
 										Mark As Delivered
 									</Button>
 								</ListGroup.Item>

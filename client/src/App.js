@@ -6,6 +6,7 @@ import Header from "./components/Header"
 import CartScreen from "./screen/CartScreen"
 import HomeScreen from "./screen/HomeScreen"
 import LoginScreen from "./screen/LoginScreen"
+import OrderListScreen from "./screen/OrderListScreen"
 import OrderScreen from "./screen/OrderScreen"
 import PaymentScreen from "./screen/PaymentScreen"
 import PlaceOrderScreen from "./screen/PlaceOrderScreen"
@@ -51,6 +52,7 @@ function App() {
 							path='/admin/product/:id/edit'
 							component={ProductEditScreen}
 						/>
+						<Route exact path='/admin/orderlist' component={OrderListScreen} />
 					</Switch>
 				</Container>
 			</main>
