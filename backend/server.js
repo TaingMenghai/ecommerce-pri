@@ -1,5 +1,6 @@
 import express from "express"
 import path from "path"
+import morgan from "morgan"
 import { config } from "dotenv"
 
 import connectDB from "./config/db.js"
@@ -17,6 +18,10 @@ connectDB()
 const app = express()
 
 app.use(express.json())
+
+if (process.env.NODE_ENV === "development") {
+	app.use(morgan("combined"))
+}
 
 app.use("/api/products", productRoutes)
 app.use("/api/users", userRoutes)
