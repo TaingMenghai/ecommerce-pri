@@ -21,6 +21,7 @@ import {
 	listProductDetail,
 } from "../actions/productAction"
 import { PRODUCT_REVIEW_RESET } from "../constants/productConstant"
+import Meta from "../components/Meta"
 
 const ProductScreen = ({ history, match }) => {
 	const productId = match.params.id
@@ -65,6 +66,7 @@ const ProductScreen = ({ history, match }) => {
 
 	return (
 		<>
+			<Meta title={product.name} />
 			<Link className='btn btn-light my-3' to='/'>
 				go back
 			</Link>

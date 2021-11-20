@@ -6,6 +6,9 @@ import { listProducts } from "../actions/productAction.js"
 import Loader from "../components/Loader.js"
 import Message from "../components/Message.js"
 import Paginate from "../components/Paginate.js"
+import ProductCarousel from "../components/ProductCarousel.js"
+import { Link } from "react-router-dom"
+import Meta from "../components/Meta.js"
 
 const HomeScreen = ({ match }) => {
 	const keyword = match.params.keyword
@@ -16,12 +19,23 @@ const HomeScreen = ({ match }) => {
 	const productList = useSelector((state) => state.productList)
 	const { loading, products, error, pages, page } = productList
 
+	console.log(products)
+
 	useEffect(() => {
 		dispatch(listProducts(keyword, pageNumber))
 	}, [dispatch, keyword, pageNumber])
 
 	return (
 		<>
+			<Meta />
+			{!keyword ? (
+				<ProductCarousel />
+			) : (
+				<Link to='/' className='btn btn-light'>
+					Go Back
+				</Link>
+			)}
+
 			<h1>latest products</h1>
 			{loading ? (
 				<Loader />
