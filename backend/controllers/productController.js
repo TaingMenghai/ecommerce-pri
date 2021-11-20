@@ -3,9 +3,24 @@ import asyncHandler from "express-async-handler"
 import Product from "../models/productModel.js"
 
 export const getProducts = asyncHandler(async (req, res) => {
-	const products = await Product.find()
+	const keyword = req.query.keyword
+		? {
+				name: {
+					$regex: req.query.keyword, // iph: still get iphone
+					$options: "i", // 'case-insensitive': upper to lower
+				},
+		  }
+		: {}
 
-	res.json({ products })
+	const pageSize = 8 // num of products to display
+	const page = Number(req.query.pageNumber) || 1 // num of page
+	const count = await Product.countDocuments({ ...keyword }) // num of products in DB
+	const products = await Product.find({ ...keyword })
+		.limit(pageSize)
+		.skip(pageSize * (page - 1))
+	// skip() method on a cursor to control where MongoDB begins returning results
+
+	res.json({ products, page, pages: Math.ceil(count / pageSize) })
 })
 
 export const getProductById = asyncHandler(async (req, res) => {

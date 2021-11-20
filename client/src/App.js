@@ -53,6 +53,18 @@ function App() {
 							component={ProductEditScreen}
 						/>
 						<Route exact path='/admin/orderlist' component={OrderListScreen} />
+						<Route exact path='/search/:keyword' component={HomeScreen} />
+						<Route
+							exact
+							path='/search/:keyword/page/:pageNumber'
+							component={HomeScreen}
+						/>
+						<Route exact path='/page/:pageNumber' component={HomeScreen} />
+						<Route
+							exact
+							path='/admin/page/:pageNumber'
+							component={ProductListScreen}
+						/>
 					</Switch>
 				</Container>
 			</main>

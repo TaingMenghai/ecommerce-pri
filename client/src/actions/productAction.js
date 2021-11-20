@@ -23,23 +23,27 @@ import {
 
 import { logout } from "./userAction"
 
-export const listProducts = () => async (dispatch) => {
-	try {
-		dispatch({ type: PRODUCT_LIST_REQUEST })
+export const listProducts =
+	(keyword = "", pageNumber = "") =>
+	async (dispatch) => {
+		try {
+			dispatch({ type: PRODUCT_LIST_REQUEST })
 
-		const { data } = await axios.get("/api/products")
+			const { data } = await axios.get(
+				`/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
+			)
 
-		dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data.products })
-	} catch (err) {
-		dispatch({
-			type: PRODUCT_LIST_FAIL,
-			payload:
-				err.response && err.response.data.message
-					? err.response.data.message
-					: err.message,
-		})
+			dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data })
+		} catch (err) {
+			dispatch({
+				type: PRODUCT_LIST_FAIL,
+				payload:
+					err.response && err.response.data.message
+						? err.response.data.message
+						: err.message,
+			})
+		}
 	}
-}
 
 export const listProductDetail = (id) => async (dispatch) => {
 	try {

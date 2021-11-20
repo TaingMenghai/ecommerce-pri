@@ -10,15 +10,18 @@ import {
 	listProducts,
 } from "../actions/productAction"
 import { PRODUCT_CREATE_RESET } from "../constants/productConstant"
+import Paginate from "../components/Paginate"
 
-const ProductListScreen = ({ history }) => {
+const ProductListScreen = ({ history, match }) => {
+	const pageNumber = match.params.pageNumber
+
 	const dispatch = useDispatch()
 
 	const userLogin = useSelector((state) => state.userLogin)
 	const { userInfo } = userLogin
 
 	const productList = useSelector((state) => state.productList)
-	const { products, loading, error } = productList
+	const { products, loading, error, pages, page } = productList
 
 	const productDelete = useSelector((state) => state.productDelete)
 	const {
@@ -43,7 +46,7 @@ const ProductListScreen = ({ history }) => {
 		if (successCreate) {
 			history.push(`/admin/product/${createdProduct._id}/edit`)
 		} else {
-			dispatch(listProducts())
+			dispatch(listProducts("", pageNumber))
 		}
 	}, [
 		dispatch,
@@ -52,6 +55,7 @@ const ProductListScreen = ({ history }) => {
 		successDelete,
 		successCreate,
 		createdProduct,
+		pageNumber,
 	])
 	// want to run this again when success delete
 
@@ -123,6 +127,7 @@ const ProductListScreen = ({ history }) => {
 							))}
 						</tbody>
 					</Table>
+					<Paginate pages={pages} page={page} isAdmin={true} />
 				</>
 			)}
 		</>
