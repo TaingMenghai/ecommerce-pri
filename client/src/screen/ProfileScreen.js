@@ -8,8 +8,9 @@ import { getUserDetails, updateUserProfile } from "../actions/userAction"
 
 import Loader from "../components/Loader"
 import Message from "../components/Message"
+import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstant"
 
-const ProfileScreen = ({ location, history }) => {
+const ProfileScreen = ({ history }) => {
 	const [name, setName] = useState("")
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
@@ -37,7 +38,8 @@ const ProfileScreen = ({ location, history }) => {
 			history.push("/login")
 		} else {
 			// when first launch, user is empty then we dispatch to get userLogin
-			if (!user || !user.name) {
+			if (!user || !user.name || success) {
+				dispatch({ type: USER_UPDATE_PROFILE_RESET })
 				dispatch(getUserDetails("profile"))
 				dispatch(listMyOrder())
 			} else {
@@ -46,7 +48,7 @@ const ProfileScreen = ({ location, history }) => {
 				setEmail(user.email)
 			}
 		}
-	}, [history, userInfo, dispatch, user])
+	}, [history, userInfo, dispatch, user, success])
 
 	const submitHandler = (e) => {
 		e.preventDefault()

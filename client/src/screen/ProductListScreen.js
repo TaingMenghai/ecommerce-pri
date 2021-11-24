@@ -2,15 +2,18 @@ import React, { useEffect } from "react"
 import { LinkContainer } from "react-router-bootstrap"
 import { Table, Button, Row, Col } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
+
 import Message from "../components/Message"
 import Loader from "../components/Loader"
+import Paginate from "../components/Paginate"
+
 import {
 	createProduct,
 	deleteProduct,
 	listProducts,
 } from "../actions/productAction"
+
 import { PRODUCT_CREATE_RESET } from "../constants/productConstant"
-import Paginate from "../components/Paginate"
 
 const ProductListScreen = ({ history, match }) => {
 	const pageNumber = match.params.pageNumber

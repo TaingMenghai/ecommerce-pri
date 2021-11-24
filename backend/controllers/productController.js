@@ -13,7 +13,7 @@ export const getProducts = asyncHandler(async (req, res) => {
 		: {}
 
 	const pageSize = 8 // num of products to display
-	const page = Number(req.query.pageNumber) || 1 // num of page
+	const page = Number(req.query.pageNumber) || 1 // pageNumber
 	const count = await Product.countDocuments({ ...keyword }) // num of products in DB
 	const products = await Product.find({ ...keyword })
 		.limit(pageSize)
