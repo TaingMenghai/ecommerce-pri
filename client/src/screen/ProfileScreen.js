@@ -34,19 +34,17 @@ const ProfileScreen = ({ history }) => {
 
 	useEffect(() => {
 		// when manually access profile route, but not logged in will redirect to login page
-		if (!userInfo) {
-			history.push("/login")
-		} else {
-			// when first launch, user is empty then we dispatch to get userLogin
-			if (!user || !user.name || success) {
-				dispatch({ type: USER_UPDATE_PROFILE_RESET })
-				dispatch(getUserDetails("profile"))
-				dispatch(listMyOrder())
-			} else {
-				// if user already logged in we set name to its name
-				setName(user.name)
-				setEmail(user.email)
-			}
+		if (!userInfo) return history.push("/login")
+
+		if (user) {
+			setName(user.name)
+			setEmail(user.email)
+		}
+		// when first launch, user detail is empty then we dispatch to get user details
+		if (!user || !user.name || success) {
+			dispatch({ type: USER_UPDATE_PROFILE_RESET })
+			dispatch(getUserDetails("profile"))
+			dispatch(listMyOrder())
 		}
 	}, [history, userInfo, dispatch, user, success])
 
@@ -57,6 +55,7 @@ const ProfileScreen = ({ history }) => {
 		//* dispatch update profile
 		dispatch(updateUserProfile({ id: user._id, name, email, password }))
 	}
+
 	return (
 		<Row>
 			<Col md={3}>

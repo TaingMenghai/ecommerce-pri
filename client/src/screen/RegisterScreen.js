@@ -6,16 +6,19 @@ import { register } from "../actions/userAction"
 import FormContainer from "../components/FormContainer"
 import Loader from "../components/Loader"
 import Message from "../components/Message"
+import useInputState from "../hooks/useInputState"
 
 const RegisterScreen = ({ location, history }) => {
-	const [name, setName] = useState("")
-	const [email, setEmail] = useState("")
-	const [password, setPassword] = useState("")
-	const [confirmPassword, setConfirmPassword] = useState("")
+	const [name, setName] = useInputState("")
+	const [email, setEmail] = useInputState("")
+	const [password, setPassword] = useInputState("")
+	const [confirmPassword, setConfirmPassword] = useInputState("")
 	const [message, setMessage] = useState(null)
+
 	const redirect = location.search ? location.search.split("=")[1] : "/"
 
 	const dispatch = useDispatch()
+
 	const userRegister = useSelector((state) => state.userRegister)
 	const { userInfo, loading, error } = userRegister
 
@@ -44,7 +47,7 @@ const RegisterScreen = ({ location, history }) => {
 						type='text'
 						placeholder='Enter Name'
 						value={name}
-						onChange={(e) => setName(e.target.value)}
+						onChange={setName}
 					></Form.Control>
 				</Form.Group>
 				<Form.Group controlId='email' className='mb-3'>
@@ -53,7 +56,7 @@ const RegisterScreen = ({ location, history }) => {
 						type='email'
 						placeholder='Enter email'
 						value={email}
-						onChange={(e) => setEmail(e.target.value)}
+						onChange={setEmail}
 					></Form.Control>
 				</Form.Group>
 				<Form.Group controlId='password' className='mb-3'>
@@ -62,7 +65,7 @@ const RegisterScreen = ({ location, history }) => {
 						type='password'
 						placeholder='Enter password'
 						value={password}
-						onChange={(e) => setPassword(e.target.value)}
+						onChange={setPassword}
 					></Form.Control>
 				</Form.Group>
 				<Form.Group controlId='password' className='mb-3'>
@@ -71,7 +74,7 @@ const RegisterScreen = ({ location, history }) => {
 						type='password'
 						placeholder='Confirm password'
 						value={confirmPassword}
-						onChange={(e) => setConfirmPassword(e.target.value)}
+						onChange={setConfirmPassword}
 					></Form.Control>
 				</Form.Group>
 				<Button type='submit' variant='primary'>

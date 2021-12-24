@@ -13,23 +13,20 @@ import { admin, protect } from "../middleware/authMiddleware.js"
 
 const router = express.Router()
 
-//* Fetch all users
-router.route("/").post(signup).get(protect, admin, getUsers)
-
 //* auth
 router.post("/login", login)
-// router.post("/signup", signup)
+router.post("/signup", signup)
 
+//* for owner
+router.use(protect)
 router
 	.route("/profile")
 	.get(protect, getUserProfile)
 	.put(protect, updateUserProfile)
 
-//* Fetch user
-router
-	.route("/:id")
-	.get(protect, admin, getUserById)
-	.delete(protect, admin, deleteUser)
-	.put(protect, admin, updateUser)
+//* for admin and protect
+router.use(admin)
+router.route("/").get(getUsers)
+router.route("/:id").get(getUserById).delete(deleteUser).put(updateUser)
 
 export default router

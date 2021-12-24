@@ -65,7 +65,7 @@ export const register = (name, email, password) => async (dispatch) => {
 	try {
 		const { data } = await axios({
 			method: "POST",
-			url: "/api/users",
+			url: "/api/users/signup",
 			data: { name, email, password },
 		})
 		dispatch({ type: USER_REGISTER_SUCCESS, payload: data })

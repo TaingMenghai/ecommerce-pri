@@ -36,10 +36,6 @@ const ProductEditScreen = ({ match, history }) => {
 	} = productUpdate
 
 	useEffect(() => {
-		if (successUpdate) {
-			dispatch({ type: PRODUCT_UPDATE_RESET })
-			history.push("/admin/productlist")
-		}
 		// if user doesn't exist or id doesn't match url
 		if (!product.name || product._id !== productId) {
 			dispatch(listProductDetail(productId))
@@ -51,6 +47,10 @@ const ProductEditScreen = ({ match, history }) => {
 			setCategory(product.category)
 			setCountInStock(product.countInStock)
 			setDescription(product.description)
+		}
+		if (successUpdate) {
+			dispatch({ type: PRODUCT_UPDATE_RESET })
+			history.push("/admin/productlist")
 		}
 	}, [dispatch, product, productId, history, successUpdate])
 

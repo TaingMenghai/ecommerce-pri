@@ -51,7 +51,7 @@ export const createProduct = asyncHandler(async (req, res) => {
 		name: "Sample name",
 		price: 0,
 		user: req.user._id,
-		image: "images/mouse.jpg",
+		image: "https://i.ibb.co/4W2DGKm/floral-blouse.png",
 		brand: "simple brand",
 		category: "simple category",
 		countInStock: 0,

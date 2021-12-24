@@ -28,18 +28,20 @@ const UserEditScreen = ({ match, history }) => {
 	} = userUpdate
 
 	useEffect(() => {
+		// if user doesn't exist or id doesn't match url
+		if (!user.name || user._id !== userId) {
+			dispatch(getUserDetails(userId))
+		}
+
+		if (user) {
+			setName(user.name)
+			setEmail(user.email)
+			setIsAdmin(user.isAdmin)
+		}
+
 		if (successUpdate) {
 			dispatch({ type: USER_UPDATE_RESET })
 			history.push("/admin/userlist")
-		} else {
-			// if user doesn't exist or id doesn't match url
-			if (!user.name || user._id !== userId) {
-				dispatch(getUserDetails(userId))
-			} else {
-				setName(user.name)
-				setEmail(user.email)
-				setIsAdmin(user.isAdmin)
-			}
 		}
 	}, [dispatch, user, userId, successUpdate, history])
 

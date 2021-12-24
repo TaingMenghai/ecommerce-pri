@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { Form, Button, Row, Col } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
@@ -6,10 +6,11 @@ import { login } from "../actions/userAction"
 import FormContainer from "../components/FormContainer"
 import Loader from "../components/Loader"
 import Message from "../components/Message"
+import useInputState from "../hooks/useInputState"
 
 const LoginScreen = ({ location, history }) => {
-	const [email, setEmail] = useState("")
-	const [password, setPassword] = useState("")
+	const [email, setEmail] = useInputState("")
+	const [password, setPassword] = useInputState("")
 	// /login?redirect=shipping
 	const redirect = location.search ? location.search.split("=")[1] : "/"
 
@@ -42,7 +43,7 @@ const LoginScreen = ({ location, history }) => {
 						type='email'
 						placeholder='Enter email'
 						value={email}
-						onChange={(e) => setEmail(e.target.value)}
+						onChange={setEmail}
 					></Form.Control>
 				</Form.Group>
 				<Form.Group controlId='password' className='mb-3'>
@@ -51,7 +52,7 @@ const LoginScreen = ({ location, history }) => {
 						type='password'
 						placeholder='Enter password'
 						value={password}
-						onChange={(e) => setPassword(e.target.value)}
+						onChange={setPassword}
 					></Form.Control>
 				</Form.Group>
 				<Button type='submit' variant='primary'>
